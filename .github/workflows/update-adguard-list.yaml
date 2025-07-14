@@ -26,9 +26,9 @@ jobs:
         
         # Run script
         cd cache-domains
-        chmod +x scripts/adguardhome.sh
+        chmod +x scripts/create-adguardhome.sh
         cd scripts
-        ./adguardhome.sh
+        ./create-adguardhome.sh
         
         # Copy result
         cp output/adguardhome/lancache.conf ../../lancache.conf
