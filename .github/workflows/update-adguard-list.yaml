@@ -1,0 +1,41 @@
+name: Generate AdGuard Lists
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Generate Lists
+      run: |
+        # Install jq
+        sudo apt-get update && sudo apt-get install -y jq
+        
+        # Clone cache-domains
+        git clone https://github.com/uklans/cache-domains.git
+        
+        # Copy config from repo
+        cp config.json cache-domains/scripts/config.json
+        
+        # Run script
+        cd cache-domains/scripts
+        chmod +x adguardhome.sh
+        ./adguardhome.sh
+        
+        # Copy result
+        cp output/adguardhome/lancache.conf ../../lancache.conf
+        
+    - name: Commit
+      run: |
+        git config user.name "Bot"
+        git config user.email "bot@example.com"
+        git add lancache.conf
+        git diff --staged --quiet || git commit -m "Update lists $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
+        git push
