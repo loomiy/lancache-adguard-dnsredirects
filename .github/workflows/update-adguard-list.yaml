@@ -19,7 +19,7 @@ jobs:
         sudo apt-get update && sudo apt-get install -y jq
         
         # Clone cache-domains
-        git clone https://github.com/uklans/cache-domains.git
+        git clone https://github.com/uklans/cache-domains
         
         # Copy config from repo
         cp config.json cache-domains/scripts/config.json
