@@ -1,6 +1,6 @@
 {
   "ips": {
-    "default": "192.168.178.32"
+    "default": "192.168.9.2"
   },
   "cache_domains": {
     "default": "default"
